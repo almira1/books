@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <property name="now" value="now()" dbms="mysql,h2"/>
+    <property name="now" value="current_timestamp" dbms="postgresql"/>
+
+    <!--
+        Added the entity Book.
+    -->
+    <changeSet id="20141209213845" author="jhipster">
+        <createTable tableName="T_BOOK">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="title" type="varchar(255)"/>
+            <column name="summary" type="varchar(255)"/>
+            <column name="file_path" type="varchar(255)"/>
+            <column name="rate" type="integer"/>
+            <column name="picture" type="varchar(255)"/>
+        </createTable>
+        
+        <createTable tableName="T_BOOK_T_AUTHOR">
+            <column name="authors_id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="books_id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseColumnNames="authors_id"
+                                 baseTableName="T_BOOK_T_AUTHOR"
+                                 constraintName="fk_book_author_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="T_AUTHOR"/>
+        <addForeignKeyConstraint baseColumnNames="books_id"
+                                 baseTableName="T_BOOK_T_AUTHOR"
+                                 constraintName="fk_author_book_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="T_BOOK"/>
+        
+        <createTable tableName="T_BOOK_T_GENRE">
+            <column name="genres_id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="books_id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseColumnNames="genres_id"
+                                 baseTableName="T_BOOK_T_GENRE"
+                                 constraintName="fk_book_genre_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="T_GENRE"/>
+        <addForeignKeyConstraint baseColumnNames="books_id"
+                                 baseTableName="T_BOOK_T_GENRE"
+                                 constraintName="fk_genre_book_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="T_BOOK"/>
+        
+        <createTable tableName="T_BOOK_T_USER">
+            <column name="users_login" type="varchar(50)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="books_id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseColumnNames="users_login"
+                                 baseTableName="T_BOOK_T_USER"
+                                 constraintName="fk_book_user_id"
+                                 referencedColumnNames="login"
+                                 referencedTableName="T_USER"/>
+        <addForeignKeyConstraint baseColumnNames="books_id"
+                                 baseTableName="T_BOOK_T_USER"
+                                 constraintName="fk_user_book_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="T_BOOK"/>
+        
+    </changeSet>
+</databaseChangeLog>
