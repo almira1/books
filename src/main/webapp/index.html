@@ -33,8 +33,6 @@
 		            </a>  
                 </div>
                 <div class="collapse navbar-collapse" id="navbar-collapse" ng-switch="authenticated">
-                
-                
                     <ul class="nav navbar-nav nav-pills navbar-right">                        
                         <li ng-switch-when="true" class="dropdown pointer">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
@@ -55,12 +53,26 @@
                                 <!-- JHipster will add entities to the menu here -->
                             </ul>
                         </li>
-                        <li>
-                            <a href="#">
-                                <span class="glyphicon glyphicon-plus"></span>
-                                <span translate="global.menu.home">Add new book</span>
-                            </a>
+                        <li ng-switch-when="true">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#/author">
+                                <span>
+                                    <span class="glyphicon glyphicon-user"></span>
+                                    <span class="hidden-tablet">
+                                        Autors
+                                    </span>
+                                </span>
+                            </a>                           
                         </li>
+                        <li ng-switch-when="true">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#/genre">
+                                <span>
+                                    <span class="glyphicon glyphicon-list"></span>
+                                    <span class="hidden-tablet">
+                                        Genres
+                                    </span>
+                                </span>
+                            </a>                           
+                        </li>                        
                         <li class="dropdown pointer">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
                                 <span>

@@ -1,13 +1,16 @@
 <div class="panel-heading">
-	<ul class="list-inline">		
+	<ul class="list-inline list-unstyled">
 		<li>
-		<span class="input-group-addon" ><span class="glyphicon glyphicon-search"></span></span> 
-         <input type="text" class="form-control" placeholder="Search" id="searchInput"> 
+			<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#saveBookModal" ng-click="clear()">
+		        <span class="glyphicon glyphicon-flash"></span> Create a new Book
+		    </button> 
 		</li>
-	</ul>   
-	<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#saveBookModal" ng-click="clear()">
-        <span class="glyphicon glyphicon-flash"></span> Create a new Book
-    </button> 
+		<li>|</li>		
+		<li>
+		<div><input type="text" class="form-control" placeholder="Search..." id="searchInput"> </div> 
+        
+		</li>
+	</ul>   	
 </div>
 <div class="panel-body">    
     <div class="modal fade" id="saveBookModal" tabindex="-1" role="dialog" aria-labelledby="myBookLabel"
