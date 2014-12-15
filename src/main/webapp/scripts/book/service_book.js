@@ -6,3 +6,12 @@ booksApp.factory('Book', function ($resource) {
             'get': { method: 'GET'}
         });
     });
+
+booksApp.factory('BookData', function ($http) {
+    return {
+        getComments: function (id, callback) {
+
+            $http.get("app/rest/books/comments/" + id).success(callback);
+        }
+    }
+})

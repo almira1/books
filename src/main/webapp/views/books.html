@@ -1,10 +1,15 @@
-<div>
-
-    <h2>Books</h2>
-
-    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#saveBookModal" ng-click="clear()">
+<div class="panel-heading">
+	<ul class="list-inline">		
+		<li>
+		<span class="input-group-addon" ><span class="glyphicon glyphicon-search"></span></span> 
+         <input type="text" class="form-control" placeholder="Search" id="searchInput"> 
+		</li>
+	</ul>   
+	<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#saveBookModal" ng-click="clear()">
         <span class="glyphicon glyphicon-flash"></span> Create a new Book
-    </button>
+    </button> 
+</div>
+<div class="panel-body">    
     <div class="modal fade" id="saveBookModal" tabindex="-1" role="dialog" aria-labelledby="myBookLabel"
          aria-hidden="true">
         <div class="modal-dialog">
@@ -19,6 +24,7 @@
                         <h4 class="modal-title" id="myBookLabel">Create or edit a Book</h4>
                     </div>
                     <div class="modal-body">
+                    
                         <div class="form-group">
                             <label>ID</label>
                             <input type="text" class="form-control" name="id"
@@ -61,12 +67,6 @@
                              <select class="form-control" multiple ng-model="book.genres" ng-options="genre as genre.name for genre in genres track by genre.id">
                              </select>
                          </div>
-                         <div class="form-group">
-                             <label>user</label>
-                             <select class="form-control" multiple ng-model="book.users" ng-options="user as user.firstName for user in users track by user.id">
-                             </select>
-                         </div>
-
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
@@ -80,8 +80,33 @@
             </div>
         </div>
     </div>
+	<div ng-repeat="book in books" class="well">
+		<div class="media">
+           <div class="pull-left" >
+               <a href="#bookDetails" role="tab" data-toggle="tab">
+               <img class="media-object" src="http://icons.iconarchive.com/icons/treetog/file-type/72/pdf-icon.png">
+               </a>
+               <a href="#" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-floppy-save"></span>Download</a>
+           </div>
+           <div class="media-body">
+               <h4 class="media-heading">{{book.title}}</h4>
+               <p class="text-left">By Anailuj</p>         
+               <ul class="list-inline list-unstyled">
+                   <span><i class="glyphicon glyphicon-comment"></i> {{book.comments.length}} comments</span>
+                   <li>|</li>
+                   <li>
+                       <span class="glyphicon glyphicon-star"></span>
+                       <span class="glyphicon glyphicon-star"></span>
+                       <span class="glyphicon glyphicon-star"></span>
+                       <span class="glyphicon glyphicon-star"></span>
+                       <span class="glyphicon glyphicon-star-empty"></span>
+                   </li>
+               </ul>
+           </div>
+        </div>
+    </div>
 
-    <div class="table-responsive">
+<div class="table-responsive">
         <table class="table table-striped">
             <thead>
                 <tr>

@@ -1,6 +1,6 @@
 'use strict';
 
-booksApp.controller('GenreController', function ($scope, resolvedGenre, Genre, resolvedBook) {
+booksApp.controller('GenreController', function ($scope, resolvedGenre, Genre, resolvedBook,resolvedUsers) {
 
         $scope.genres = resolvedGenre;
         $scope.books = resolvedBook;

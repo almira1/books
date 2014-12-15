@@ -24,7 +24,8 @@ public class Comment implements Serializable {
     @ManyToOne
     private User user;
 
-    @ManyToOne
+    @ManyToOne    
+    @JsonIgnore
     private Book book;
 
     public Long getId() {

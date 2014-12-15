@@ -37,7 +37,6 @@ public class Book implements Serializable {
     private Set<Author> authors = new HashSet<>();
 
     @OneToMany(mappedBy = "book")
-    @JsonIgnore
     private Set<Comment> comments = new HashSet<>();
 
     @ManyToMany
@@ -95,10 +94,11 @@ public class Book implements Serializable {
     }
 
     public Set<Author> getAuthors() {
-        return authors;
+    	return new HashSet<Author>();
     }
 
     public void setAuthors(Set<Author> authors) {
+    	if(authors == null) return;
         this.authors = authors;
     }
 
@@ -156,6 +156,7 @@ public class Book implements Serializable {
                 ", filePath='" + filePath + "'" +
                 ", rate='" + rate + "'" +
                 ", picture='" + picture + "'" +
+                ", comments='" + comments.toString() + "'"+
                 '}';
     }
 }

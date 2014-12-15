@@ -10,6 +10,9 @@ booksApp
                         resolvedGenre: ['Genre', function (Genre) {
                             return Genre.query().$promise;
                         }],
+                        resolvedUser: ['User', function (User) {
+                            return User.query().$promise;
+                        }],
                         resolvedBook: ['Book', function (Book) {
                             return Book.query().$promise;
                         }]

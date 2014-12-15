@@ -2,7 +2,12 @@ package com.mycompany.myapp.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.mycompany.myapp.domain.Book;
+import com.mycompany.myapp.domain.Comment;
+import com.mycompany.myapp.repository.AuthorRepository;
 import com.mycompany.myapp.repository.BookRepository;
+import com.mycompany.myapp.repository.CommentRepository;
+import com.mycompany.myapp.repository.GenreRepository;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -12,7 +17,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
+
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * REST controller for managing Book.
@@ -25,6 +33,12 @@ public class BookResource {
 
     @Inject
     private BookRepository bookRepository;
+    @Inject
+    private CommentRepository commentRepository;
+    @Inject
+    private AuthorRepository authorRepository;
+    @Inject
+    private GenreRepository genreRepository;
 
     /**
      * POST  /rest/books -> Create a new book.
@@ -47,7 +61,9 @@ public class BookResource {
     @Timed
     public List<Book> getAll() {
         log.debug("REST request to get all Books");
-        return bookRepository.findAll();
+        List<Book> books =  bookRepository.findEagerRelationships();
+        
+        return books;        
     }
 
     /**
@@ -64,8 +80,8 @@ public class BookResource {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(book, HttpStatus.OK);
-    }
-
+    }    
+    
     /**
      * DELETE  /rest/books/:id -> delete the "id" book.
      */

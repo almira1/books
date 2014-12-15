@@ -183,3 +183,9 @@ booksApp
                     $location.path('');
                 });
         });
+
+function toggleClass(){
+    $("#pickBook,#pickUser").toggleClass('btn-default');
+    $("#pickBook,#pickUser").toggleClass('btn-info');
+       
+}

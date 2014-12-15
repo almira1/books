@@ -1,11 +1,14 @@
 'use strict';
 
-booksApp.controller('BookController', function ($scope, resolvedBook, Book, resolvedAuthor, resolvedComment, resolvedGenre) {
+booksApp.controller('BookController', function ($scope, resolvedBook, Book, BookData, resolvedAuthor, resolvedComment, resolvedGenre,resolvedUser) {
 
         $scope.books = resolvedBook;
         $scope.authors = resolvedAuthor;
         $scope.comments = resolvedComment;
         $scope.genres = resolvedGenre;
+        $scope.users = resolvedUser;
+        
+        
 
         $scope.create = function () {
             Book.save($scope.book,

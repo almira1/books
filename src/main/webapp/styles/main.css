@@ -112,4 +112,50 @@ ul#strength {
     margin-right:1px;
     width:20px;
 }
+
+#pickBook {
+  width: 60px;  height: 20px;margin-top: 0;
+  border-top-left-radius:0;
+}
+#pickUser{
+     width: 60px;  height: 20px;margin-bottom: 0;
+     border-bottom-left-radius:0;
+}
+
+#searchAddon{
+    padding:0;  
+    width: 60px;  height: 40px;margin:0;
+    background-color:#FFFFFF;
+    border:0;
+}
+#searchInput{
+    height: 40px;
+}
+#addBook{
+    margin-left:25%;
+    margin-right:25%;
+}
+
+/* layout.css Style */
+.upload-drop-zone {
+  height: 100px;
+  border-width: 2px;
+  margin-bottom: 10px;
+}
+
+/* skin.css Style*/
+.upload-drop-zone {
+  color: #ccc;
+  border-style: dashed;
+  border-color: #ccc;
+  line-height: 100px;
+  text-align: center
+}
+.upload-drop-zone.drop {
+  color: #222;
+  border-color: #222;
+}
+
+#hearts { color: #FF0000;}
+#hearts-existing { color: #87bad7;}
 /* end Password strength bar style */
