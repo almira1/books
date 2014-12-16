@@ -6,10 +6,23 @@ booksApp.controller('BookController', function ($scope, resolvedBook, Book, Book
         $scope.authors = resolvedAuthor;
         $scope.comments = resolvedComment;
         $scope.genres = resolvedGenre;
-        $scope.users = resolvedUser;
+        $scope.users = resolvedUser;   
         
         
-
+        
+        
+       $scope.searchText = "";
+       $scope.search = function(){    	  
+    	  var text = $scope.searchText;    	  
+    	  var books = [];
+    	  for(var i = resolvedBook.length - 1; i >= 0; i--) {
+    		    if((resolvedBook[i]).title.search(text) != -1) {
+    		    	books.push(resolvedBook[i]);
+    		    }
+    		}
+    	  $scope.books = books;
+      };
+          
         $scope.create = function () {
             Book.save($scope.book,
                 function () {

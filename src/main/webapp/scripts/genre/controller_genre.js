@@ -1,10 +1,22 @@
 'use strict';
 
-booksApp.controller('GenreController', function ($scope, resolvedGenre, Genre, resolvedBook,resolvedUsers) {
+booksApp.controller('GenreController', function ($scope, resolvedGenre, Genre, resolvedBook,resolvedUser) {
 
         $scope.genres = resolvedGenre;
         $scope.books = resolvedBook;
 
+        $scope.searchText = "";
+        $scope.search = function(){    	  
+     	  var text = $scope.searchText;    	  
+     	  var genres = [];
+     	  for(var i = resolvedGenre.length - 1; i >= 0; i--) {
+     		    if((resolvedGenre[i]).name.search(text) != -1) {
+     		    	genres.push(resolvedGenre[i]);
+     		    }
+     		}
+     	  $scope.genres = genres;
+       };
+       
         $scope.create = function () {
             Genre.save($scope.genre,
                 function () {

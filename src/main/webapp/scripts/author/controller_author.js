@@ -5,6 +5,19 @@ booksApp.controller('AuthorController', function ($scope, resolvedAuthor, Author
         $scope.authors = resolvedAuthor;
         $scope.books = resolvedBook;
 
+
+        $scope.searchText = "";
+        $scope.search = function(){    	  
+     	  var text = $scope.searchText;    	  
+     	  var authors = [];
+     	  for(var i = resolvedAuthor.length - 1; i >= 0; i--) {
+     		    if((resolvedAuthor[i]).name.search(text) != -1) {
+     		    	authors.push(resolvedAuthor[i]);
+     		    }
+     		}
+     	  $scope.authors = authors;
+       };
+       
         $scope.create = function () {
             Author.save($scope.author,
                 function () {
