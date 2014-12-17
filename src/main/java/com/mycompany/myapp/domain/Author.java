@@ -27,7 +27,8 @@ public class Author implements Serializable {
     @Column(name = "picture")
     private String picture;
 
-    @ManyToMany(mappedBy = "authors")   
+    @ManyToMany(mappedBy = "authors")
+    @JsonIgnore
     private Set<Book> books = new HashSet<>();
 
     public Long getId() {

@@ -86,7 +86,7 @@ public class Book implements Serializable {
     }
 
     public String getPicture() {
-        return picture;
+        return  picture;
     }
 
     public void setPicture(String picture) {
@@ -94,11 +94,10 @@ public class Book implements Serializable {
     }
 
     public Set<Author> getAuthors() {
-    	return new HashSet<Author>();
+    	return authors;
     }
 
-    public void setAuthors(Set<Author> authors) {
-    	if(authors == null) return;
+    public void setAuthors(Set<Author> authors) {    	
         this.authors = authors;
     }
 

@@ -27,12 +27,18 @@
                     </div>
                     <div class="modal-body">
                     
-                        <div class="form-group">
-                            <label>ID</label>
-                            <input type="text" class="form-control" name="id"
-                                   ng-model="book.id" readonly>
-                        </div>
-
+                       <div class="form-group">
+                       <div class = "col-sm-2">
+	                       <div class="input-group">
+			                    <a href="/users" class="pull-right">
+			                        <img title="profile image" id = "img" class="img-circle img-responsive" data-ng-src="{{book.picture}}""/>
+			                    </a>
+			                </div> 
+                       </div>			                  
+			               <div class="form-group input-group">
+			                   <div file-input="file" on-change="readFile(file)" name="Image"></div>                                    
+			                </div>
+			            </div>    
                         <div class="form-group">
                             <label>Title</label>
                             <input type="text" class="form-control"
@@ -42,23 +48,7 @@
                             <label>Summary</label>
                             <input type="text" class="form-control"
                                    ng-model="book.summary">
-                        </div>
-                        <div class="form-group">
-                            <label>FilePath</label>
-                            <input type="text" class="form-control"
-                                   ng-model="book.filePath">
-                        </div>
-                        <div class="form-group">
-                            <label>Rate</label>
-                            <input type="number" class="form-control"
-                                   ng-model="book.rate">
-                        </div>
-                        <div class="form-group">
-                            <label>Picture</label>
-                            <input type="text" class="form-control"
-                                   ng-model="book.picture">
-                        </div>
-
+                        </div>                        
                          <div class="form-group">
                              <label>author</label>
                              <select class="form-control" multiple ng-model="book.authors" ng-options="author as author.name for author in authors track by author.id">
@@ -84,9 +74,9 @@
     </div>
 	<div ng-repeat="book in books" class="well">
 		<div class="media">
-           <div class="pull-left" >
+           <div class="pull-left">
                <a href="#bookDetails" role="tab" data-toggle="tab">
-               <img class="media-object" src="http://icons.iconarchive.com/icons/treetog/file-type/72/pdf-icon.png">
+               <img id = "picture" class="media-object" data-ng-src="{{book.picture}}">
                </a>                
            </div>
            <div class="media-body">
