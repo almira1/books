@@ -44,6 +44,11 @@ booksApp.controller('BookController', function ($scope, resolvedBook, Book, Book
             $scope.imageSrc = $scope.book.picture;
             $('#saveBookModal').modal('show');
         };
+        
+        $scope.show = function (id) {
+                   $scope.book = Book.get({id: id});
+                   $('#showBookModal').modal('show');
+               };
 
         $scope.delete = function (id) {
             Book.delete({id: id},
