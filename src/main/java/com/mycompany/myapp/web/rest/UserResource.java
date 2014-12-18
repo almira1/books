@@ -34,22 +34,6 @@ public class UserResource {
     @Inject
     private UserRepository userRepository;
 
-    /**
-     * GET  /rest/users/:login -> get the "login" user.
-     */
-    @RequestMapping(value = "/rest/users/{login}",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    @Timed
-    @RolesAllowed(AuthoritiesConstants.ADMIN)
-    public User getUser(@PathVariable String login, HttpServletResponse response) {
-        log.debug("REST request to get User : {}", login);
-        User user = userRepository.findOne(login);
-        if (user == null) {
-            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-        }
-        return user;
-    }
     
     /**
      * GET  /rest/users -> get all the users.
@@ -64,9 +48,9 @@ public class UserResource {
     }
 
     /**
-     * GET  /rest/users/:id -> get the "id" user.
+     * GET  /rest/users/:login -> get the "login" user.
      */
-    @RequestMapping(value = "/rest/users/{id}",
+    @RequestMapping(value = "/rest/users/{login}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
