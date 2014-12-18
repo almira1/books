@@ -38,6 +38,12 @@ booksApp.controller('AuthorController', function ($scope, resolvedAuthor, Author
                     $scope.authors = Author.query();
                 });
         };
+        
+        $scope.show = function (id) {
+            $scope.author = Author.get({id: id});
+            $('#showAuthorModal').modal('show');
+        };        
+        
 
         $scope.clear = function () {
             $scope.author = {name: null, summary: null, picture: null, id: null};

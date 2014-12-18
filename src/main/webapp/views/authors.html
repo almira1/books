@@ -12,7 +12,7 @@
 		</li>
 	</ul>   	
 </div>
-<div class="panel-body">
+<div class="panel-body">    
     <div class="modal fade" id="saveAuthorModal" tabindex="-1" role="dialog" aria-labelledby="myAuthorLabel"
          aria-hidden="true">
         <div class="modal-dialog">
@@ -24,9 +24,18 @@
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
                                 ng-click="clear()">&times;</button>
-                        <h4 class="modal-title" id="myAuthorLabel">Create or edit a Author</h4>
+                        <h4 class="modal-title" id="myAuthorLabel">Author details</h4>
                     </div>
-                    <div class="modal-body">                        
+                    <div class="modal-body">
+                    
+                       <div class="form-group">
+                       <div class = "col-sm-2">
+	                       <div class="input-group">
+			                    
+			                </div> 
+                       </div>			                  
+			               
+			            </div>    
                         <div class="form-group">
                             <label>Name</label>
                             <input type="text" class="form-control"
@@ -36,14 +45,8 @@
                             <label>Summary</label>
                             <input type="text" class="form-control"
                                    ng-model="author.summary">
-                        </div>
-                        <div class="form-group">
-                            <label>Picture</label>
-                            <input type="text" class="form-control"
-                                   ng-model="author.picture">
-                        </div>
-
-
+                        </div>                        
+                        
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
@@ -57,7 +60,39 @@
             </div>
         </div>
     </div>
-
+ <div class="modal fade" id="showAuthorModal" tabindex="-1" role="dialog" aria-labelledby="myAuthorLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="form" role="form" novalidate
+                      class="ng-scope ng-invalid ng-invalid-required ng-dirty ng-valid-minlength"
+                      ng-submit="show(author.id)">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title" id="myAuthorLabel">Author details</h4>
+                    </div>
+                    
+                        <div class="form-group">
+                            <label>Name</label>
+                         {{author.name}}
+                        </div>
+                        <div class="form-group">
+                            <label>Summary</label>
+                         {{author.summary}}
+                        </div>
+                       
+                      
+             
+                    <div class="modal-footer">
+                                <button type="button" class="btn btn-warning" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span> Hide
+                        </button>
+                   </div>
+                   </div>
+                </form>
+                </div>
+            </div>
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>
@@ -74,6 +109,13 @@
                     <td>{{author.summary}}</td>
                     <td>{{author.picture}}</td>
                     <td>
+                    
+                    <button type="submit" 
+	                    	ng-click="show(author.id)" 
+	                    	class="btn btn-success">
+ 						<span class="glyphicon glyphicon-info-sign"></span> Show author
+ 					</button>
+ 
                         <button type="submit"
                                 ng-click="update(author.id)"
                                 class="btn btn-default">
