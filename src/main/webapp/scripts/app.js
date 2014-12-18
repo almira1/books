@@ -15,6 +15,19 @@ booksApp
                         authorizedRoles: [USER_ROLES.all]
                     }
                 })
+                 .when('/user', {
+                    templateUrl: 'views/users.html',
+                    controller: 'UserController',
+                    resolve:{
+                        resolvedUser: ['User', function (User) {
+                            return User.query().$promise;
+                        }]
+                        
+                    },
+                    access: {
+                        authorizedRoles: [USER_ROLES.all]
+                    }
+                })
                 .when('/activate', {
                     templateUrl: 'views/activate.html',
                     controller: 'ActivationController',

@@ -22,6 +22,25 @@ booksApp.controller('LanguageController', function ($scope, $translate, Language
         });
     });
 
+
+booksApp.controller('UserController', function ($scope, resolvedUser, User) {
+
+    $scope.users = resolvedUser;
+
+    
+    $scope.show = function (login) {
+    	
+        $scope.user = User.get({login: login});
+        $('#showUserModal').modal('show');
+    };
+
+});
+
+
+
+
+
+
 booksApp.controller('MenuController', function ($scope) {
     });
 

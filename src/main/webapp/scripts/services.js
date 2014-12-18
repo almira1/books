@@ -9,6 +9,15 @@ booksApp.factory('User', function ($resource) {
     });
 });
 
+
+booksApp.factory('User', function ($resource) {
+    return $resource('app/rest/users/:login', {}, {
+        'query': { method: 'GET', isArray: true},
+        'get': { method: 'GET'}
+    });
+});
+
+
 booksApp.factory('LanguageService', function ($http, $translate, LANGUAGES) {
         return {
             getBy: function(language) {
