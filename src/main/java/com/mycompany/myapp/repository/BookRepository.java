@@ -13,10 +13,10 @@ import org.springframework.data.repository.query.Param;
  */
 public interface BookRepository extends JpaRepository<Book, Long> {
 
-    @Query("select book from Book book left join fetch book.authors left join fetch book.genres left join fetch book.users left join fetch book.comments where book.id = :id")
+    @Query("select distinct book from Book book left join fetch book.authors left join fetch book.genres left join fetch book.users left join fetch book.comments where book.id = :id")
     Book findOneWithEagerRelationships(@Param("id") Long id);
     
-    @Query("select book from Book book left join fetch book.authors left join fetch book.genres left join fetch book.users left join fetch book.comments")
+    @Query("select distinct book from Book book left join fetch book.authors left join fetch book.genres left join fetch book.users left join fetch book.comments")
     List<Book> findEagerRelationships();
 
 }

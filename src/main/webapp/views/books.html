@@ -5,9 +5,18 @@
 		        <span class="glyphicon glyphicon-flash"></span> Create a new Book
 		    </button> 
 		</li>
-		<li>|</li>		
+		<li>|</li>
+		<li>		
+		<div>			
+		     <input type="text" class="form-control" placeholder="{{searchCriteria}}" ng-model = "searchText" ng-change="search()">		     	     
+        </div>         
+		</li>
 		<li>
-		<div><input type="text" class="form-control" placeholder="Search..." ng-model = "searchText" ng-change="search()"> </div>         
+			<select ng-model = 'searchCriteria' class="form-control">
+			      <option >Title</option >
+			      <option >Author</option >
+			      <option >Genre</option >
+			    </select>
 		</li>		
 	</ul>   	
 </div>
@@ -25,8 +34,7 @@
                                 ng-click="clear()">&times;</button>
                         <h4 class="modal-title" id="myBookLabel">Create or edit a Book</h4>
                     </div>
-                    <div class="modal-body">
-                    
+                    <div class="modal-body">                    
                        <div class="form-group">
                        <div class = "col-sm-2">
 	                       <div class="input-group">

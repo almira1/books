@@ -15,6 +15,6 @@ import org.springframework.data.jpa.repository.Query;
  */
 public interface AuthorRepository extends JpaRepository<Author, Long> {
 	
-	  @Query("select author from Author author left join fetch author.books")
+	  @Query("select distinct author from Author author left join fetch author.books")
 	    List<Author> findEagerRelationships();
 }

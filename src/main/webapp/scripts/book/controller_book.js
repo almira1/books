@@ -21,11 +21,35 @@ booksApp.controller('BookController', function ($scope, resolvedBook, Book, Book
        $scope.search = function(){    	  
     	  var text = $scope.searchText;    	  
     	  var books = [];
-    	  for(var i = resolvedBook.length - 1; i >= 0; i--) {
-    		    if((resolvedBook[i]).title.search(text) != -1) {
-    		    	books.push(resolvedBook[i]);
-    		    }
-    		}
+    	  switch($scope.searchCriteria)
+    	  {
+    	  case 'Title' : 
+    		  for(var i = resolvedBook.length - 1; i >= 0; i--) {
+      		    if((resolvedBook[i]).title.search(text) != -1) {
+      		    	books.push(resolvedBook[i]);
+      		    }
+      		}
+    		break;
+    	  case 'Author' :
+    		  for(var i = resolvedBook.length - 1; i >= 0; i--) {
+    			  for(var j = (resolvedBook[i]).authors.length -1; j>= 0; j--)    				  
+        		    if((resolvedBook[i]).authors[j].name.search(text) != -1) {
+        		    	books.push(resolvedBook[i]);
+        		    	break;
+        		    }
+        		}
+      		break;    	
+    	  case 'Genre' :    		 
+    		  for(var i = resolvedBook.length - 1; i >= 0; i--) {
+    			  for(var j = (resolvedBook[i]).genres.length -1; j>= 0; j--)    				  
+        		    if((resolvedBook[i]).genres[j].name.search(text) != -1) {
+        		    	books.push(resolvedBook[i]);
+        		    	break;
+        		    }
+        		}
+      		break;    	  
+    	  }
+    	  
     	  $scope.books = books;
       };
           
@@ -60,4 +84,7 @@ booksApp.controller('BookController', function ($scope, resolvedBook, Book, Book
         $scope.clear = function () {
             $scope.book = {title: null, summary: null, filePath: null, rate: null, picture: null, id: null};
         };
+        
+        $scope.searchCriteria = 'Title';       
+        
     });
