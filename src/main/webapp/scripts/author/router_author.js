@@ -18,4 +18,11 @@ booksApp
                         authorizedRoles: [USER_ROLES.all]
                     }
                 })
+                .when('/authordetails/:id', {
+                    templateUrl: 'views/authorDetails.html',
+                    controller: 'AuthorDetails',                    
+                    access: {
+                        authorizedRoles: [USER_ROLES.all]
+                    }
+                })
         });

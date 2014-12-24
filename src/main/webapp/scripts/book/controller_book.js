@@ -8,14 +8,36 @@ booksApp.controller('BookController', function ($scope, resolvedBook, Book, Book
         $scope.genres = resolvedGenre;
         $scope.users = resolvedUser;           
                  
+        $scope.src = null;
+        
         $scope.readFile = function (file) {    
             
             fileReader.readAsDataUrl(file, $scope)
                      .then(function (result) {                         
-                         $scope.book.picture = result;
+                         $scope.src = result;                         
                      });
         };
         
+       $scope.fullStars =  function fullStars(book)  {
+      	  var average = 0;	  
+      	  if(book.rate != 0)
+      		  average = Math.round(book.rate / book.ratePeople);      	  
+      	  var fullStars = []; 
+        	for(var i = 1; i <= average; i++)
+        		fullStars.push(i);
+        	return fullStars;
+        };
+        
+        $scope.emptyStars = function emptyStars(book)  {
+        	  var average = 0;	  
+          	  if(book.rate != 0)
+          		  average = Math.round(book.rate / book.ratePeople);          	  
+          	  var emptyStars = []; 
+            	for(var i = 5; i > average; i--)
+            		emptyStars.push(i);	
+            	return emptyStars;
+            };
+            
         
        $scope.searchText = "";
        $scope.search = function(){    	  
@@ -53,7 +75,8 @@ booksApp.controller('BookController', function ($scope, resolvedBook, Book, Book
     	  $scope.books = books;
       };
           
-        $scope.create = function () {        	
+        $scope.create = function () {  
+        	    $scope.book.picture=$scope.src;
         		Book.save($scope.book,
                 function () {
                     $scope.books = Book.query();
@@ -61,19 +84,18 @@ booksApp.controller('BookController', function ($scope, resolvedBook, Book, Book
                     $scope.clear();
                 });
         };
-
-        $scope.update = function (id) {
-        	
-            $scope.book = Book.get({id: id});    
-            $scope.imageSrc = $scope.book.picture;
+        
+        function getBook (id){
+      	  BookData.getBook(id, function(results){
+      		  $scope.book = results;
+      		  $scope.src = $scope.book.picture;		  
+      	  }); 
+        };
+        $scope.update = function (id) {        	
+        	getBook(id);
             $('#saveBookModal').modal('show');
         };
         
-        $scope.show = function (id) {
-                   $scope.book = Book.get({id: id});
-                   $('#showBookModal').modal('show');
-               };
-
         $scope.delete = function (id) {
             Book.delete({id: id},
                 function () {
@@ -91,11 +113,22 @@ booksApp.controller('BookController', function ($scope, resolvedBook, Book, Book
 
 
 
-booksApp.controller('BookDetails', function ($scope,$routeParams,Book,Comment,Account,User,BookData) {
-  function getBook (){
+booksApp.controller('BookDetails', function ($scope,$routeParams,Book,Comment,Account,User,BookData,$location,resolvedAuthor, resolvedGenre,fileReader) {
+  
+	$scope.authors = resolvedAuthor;    
+    $scope.genres = resolvedGenre;
+    
+    $scope.readFile = function (file) { 
+	    fileReader.readAsDataUrl(file, $scope)
+	             .then(function (result) {                         
+	                 $scope.src = result;
+	             });
+    };
+    
+	function getBook (){
 	  BookData.getBook($routeParams.id, function(results){
 		  $scope.book = results;
-		  setRate();
+		  setRate();		  
 	  }); 
   };
   getBook();
@@ -166,6 +199,30 @@ booksApp.controller('BookDetails', function ($scope,$routeParams,Book,Comment,Ac
 	  Comment.save(comment, function () {});
 
   };
+  
+  $scope.create = function () { 
+	    $scope.book.picture = $scope.src;
+		Book.save($scope.book,
+      function () {
+          $scope.books = Book.query();
+          $('#saveBookModal').modal('hide');
+          $scope.clear();
+      });
+};
+
+$scope.update = function (id) {
+	  $scope.src = $scope.book.picture;
+	  $scope.book = Book.get({id: id});    
+	  $scope.imageSrc = $scope.book.picture;
+	  $('#saveBookModal').modal('show');
+};
+
+$scope.delete = function (id) {
+  Book.delete({id: id},
+      function () {
+	  $location.path('/book');
+      });
+};
    
 });
 

@@ -2,7 +2,10 @@ package com.mycompany.myapp.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.mycompany.myapp.domain.Author;
+import com.mycompany.myapp.domain.Book;
 import com.mycompany.myapp.repository.AuthorRepository;
+import com.mycompany.myapp.repository.BookRepository;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -12,7 +15,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
+
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * REST controller for managing Author.
@@ -25,6 +31,9 @@ public class AuthorResource {
 
     @Inject
     private AuthorRepository authorRepository;
+    
+    @Inject
+    private BookRepository bookRepository;
 
     /**
      * POST  /rest/authors -> Create a new author.
@@ -59,10 +68,11 @@ public class AuthorResource {
     @Timed
     public ResponseEntity<Author> get(@PathVariable Long id, HttpServletResponse response) {
         log.debug("REST request to get Author : {}", id);
-        Author author = authorRepository.findOne(id);
+        Author author = authorRepository.findOneEagerRelationships(id);
         if (author == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        }       
+        
         return new ResponseEntity<>(author, HttpStatus.OK);
     }
 

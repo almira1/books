@@ -1,9 +1,16 @@
 'use strict';
 
-booksApp.controller('AuthorController', function ($scope, resolvedAuthor, Author, resolvedBook) {
+booksApp.controller('AuthorController', function ($scope, resolvedAuthor, Author, resolvedBook,fileReader) {
 
         $scope.authors = resolvedAuthor;
         $scope.books = resolvedBook;
+		
+        $scope.readFile = function (file) { 
+		    fileReader.readAsDataUrl(file, $scope)
+		             .then(function (result) {                         
+		                 $scope.author.picture = result;		                
+		             });
+        };
 
 
         $scope.searchText = "";
@@ -49,3 +56,35 @@ booksApp.controller('AuthorController', function ($scope, resolvedAuthor, Author
             $scope.author = {name: null, summary: null, picture: null, id: null};
         };
     });
+
+booksApp.controller('AuthorDetails',function ($scope,Author,Book,$routeParams,$location,fileReader)
+{	
+	$scope.readFile = function (file) { 
+	    fileReader.readAsDataUrl(file, $scope)
+	             .then(function (result) {                         
+	            	 $scope.author.picture = result;	                 
+	             });
+    };
+    
+	$scope.author = Author.get({id: $routeParams.id});	
+	
+	$scope.create = function () {		
+        Author.save($scope.author,
+            function () {              
+                $('#saveAuthorModal').modal('hide');                
+            });
+    };
+
+    $scope.update = function (id) {
+        $scope.author = Author.get({id: id});        
+        $('#saveAuthorModal').modal('show');
+    };
+
+    $scope.delete = function (id) {
+        Author.delete({id: id},
+            function () {
+        	$location.path('/author');
+            });
+    };
+	
+});

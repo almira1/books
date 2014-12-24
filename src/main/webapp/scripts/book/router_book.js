@@ -34,8 +34,11 @@ booksApp
                         resolvedBook: ['Book', function (Book) {
                             return Book.query().$promise;
                         }],
-                        resolvedComment: ['Comment', function (Comment) {
-                            return Comment.query().$promise;
+                        resolvedAuthor: ['Author', function (Author) {
+                            return Author.query().$promise;
+                        }],                       
+                        resolvedGenre: ['Genre', function (Genre) {
+                            return Genre.query().$promise;
                         }]
                     },
                     access: {

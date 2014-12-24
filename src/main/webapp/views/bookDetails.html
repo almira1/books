@@ -1,9 +1,20 @@
 <div class="well">
     <div class="media"> 
-        <div class="pull-left">
-            <div class = "col-sm-2">
-              <img title="profile image" class="picture" data-ng-src="{{book.picture}}"/>                        
-            </div>           
+        <div class="pull-left">            
+              <img title="profile image" class="picture" data-ng-src="{{book.picture}}"/>
+              <br>                        
+	            <ul class="list-inline list-unstyled">                  
+	                <li>                   
+	                 <button type="submit" ng-click="update(book.id)" class="btn btn-xs btn-default">
+	                    <span class="glyphicon glyphicon-pencil"></span>Edit book
+	                 </button>
+	                </li>
+	                <li>
+	                 <button type="submit" ng-click="delete(book.id)" class="btn btn-xs btn-danger">
+	                       <span class="glyphicon glyphicon-remove-circle"></span> Delete book
+	                 </button>
+	                </li>
+	            </ul>        
         </div>
         <div class="media-body">
             <h1 class="media-heading">{{book.title}}</h1>
@@ -62,5 +73,64 @@
                 </div>                    
             </li>                  
         </ul>                      
+    </div>
+    <div class="modal fade" id="saveBookModal" tabindex="-1" role="dialog" aria-labelledby="myBookLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="form" role="form" novalidate
+                      class="ng-scope ng-invalid ng-invalid-required ng-dirty ng-valid-minlength"
+                      ng-submit="create()">
+
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title" id="myBookLabel">Edit Book</h4>
+                    </div>
+                    <div class="modal-body">                    
+                       <div class="form-group">
+                       <div class = "col-sm-2">
+	                       <div class="input-group">
+			                    <a href="/users" class="pull-right">
+			                        <img title="profile image" id = "img" class="img-circle img-responsive" data-ng-src="{{src}}""/>
+			                    </a>
+			                </div> 
+                       </div>			                  
+			               <div class="form-group input-group">
+			                   <div file-input="file" on-change="readFile(file)" name="Image"></div>                                    
+			                </div>
+			            </div>    
+                        <div class="form-group">
+                            <label>Title</label>
+                            <input type="text" class="form-control"
+                                   ng-model="book.title">
+                        </div>
+                        <div class="form-group">
+                            <label>Summary</label>
+                            <input type="text" class="form-control"
+                                   ng-model="book.summary">
+                        </div>                        
+                         <div class="form-group">
+                             <label>author</label>
+                             <select class="form-control" multiple ng-model="book.authors" ng-options="author as author.name for author in authors track by author.id">
+                             </select>
+                         </div>
+                         <div class="form-group">
+                             <label>genre</label>
+                             <select class="form-control" multiple ng-model="book.genres" ng-options="genre as genre.name for genre in genres track by genre.id">
+                             </select>
+                         </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+                        </button>
+                        <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-save"></span> Save
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </div>

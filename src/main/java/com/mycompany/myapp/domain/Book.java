@@ -111,6 +111,16 @@ public class Book implements Serializable {
     public void setAuthors(Set<Author> authors) {    	
         this.authors = authors;
     }
+    
+    public void setAuthor(Author author)
+    {
+    	for(Author a : authors)
+    	{
+    		if (a.getId() == author.getId())
+    			authors.remove(a);    		
+    	}
+    	authors.add(author);
+    }
 
     public Set<Comment> getComments() {
         return comments;

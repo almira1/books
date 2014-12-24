@@ -69,6 +69,16 @@ public class Author implements Serializable {
     public void setBooks(Set<Book> books) {
         this.books = books;
     }
+    
+    public void setBook(Book book)
+    {
+    	for(Book b : books)
+    	{
+    		if(b.getId() == book.getId())
+    			books.remove(b);
+    	}
+    	books.add(book);
+    }
 
     @Override
     public boolean equals(Object o) {

@@ -1,18 +1,46 @@
-<div class="panel-heading">
-	<ul class="list-inline list-unstyled">
-		<li>
-			<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#saveAuthorModal" ng-click="clear()">
-	        <span class="glyphicon glyphicon-flash"></span> Create a new Author
-	        </button>
-		</li>
-		<li>|</li>		
-		<li>
-		<div><input type="text" class="form-control" placeholder="Search..." ng-model = "searchText" ng-change="search()"> </div> 
-        
-		</li>
-	</ul>   	
-</div>
-<div class="panel-body">    
+<div class="well">
+    <div class="media"> 
+        <div class="pull-left">           
+              <img title="profile image" class="picture-small" data-ng-src="{{author.picture}}"/>  
+              <ul class="list-inline list-unstyled">               
+               <li>               
+                <button type="submit" ng-click="update(author.id)" class="btn btn-xs btn-default">
+                   <span class="glyphicon glyphicon-pencil"></span>Edit author
+                </button>
+               </li>
+               <li>
+                <button type="submit" ng-click="delete(author.id)" class="btn btn-xs btn-danger">
+                      <span class="glyphicon glyphicon-remove-circle"></span> Delete author
+                </button>
+               </li>
+           </ul>           
+        </div>
+        <div class="media-body">
+            <h1 class="media-heading">{{author.name}}</h1>
+            <b>Summary:</b>
+            <p>{{author.summary}}</p>                                           
+        </div>  
+    </div> 
+    <br>
+    <div class="panel panel-default"> 
+	    <div class="panel-heading">
+		    <ul class="list-inline list-unstyled">
+			    <li><span class="badge">{{author.books.length}}</span></li>
+			    <li>Books</li>
+		    </ul>    
+	    </div> 
+	    <div class="panel-body body">      
+			<div ng-repeat="book in author.books" class="col-sm-3 col-md-2 body">
+				<div class="thumbnail body">
+					<img id = "picture" class="media-object" data-ng-src="{{book.picture}}">
+					<div class="caption">
+					    <h3 class="media-heading">{{book.title}}</h3>
+			            <a href="#/bookdetails/{{book.id}}" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-eye-open"></span>Show book</a>
+					</div>
+				</div>	           
+	        </div> 
+	    </div>
+    </div>
     <div class="modal fade" id="saveAuthorModal" tabindex="-1" role="dialog" aria-labelledby="myAuthorLabel"
          aria-hidden="true">
         <div class="modal-dialog">
@@ -24,7 +52,7 @@
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
                                 ng-click="clear()">&times;</button>
-                        <h4 class="modal-title" id="myAuthorLabel">Author details</h4>
+                        <h4 class="modal-title" id="myAuthorLabel">Update Author</h4>
                     </div>
                     <div class="modal-body">
                     <div class="form-group">
@@ -63,38 +91,4 @@
             </div>
         </div>
     </div> 
-   <div ng-repeat="author in authors" class="well">
-		<div class="media">
-        <div class="pull-left">
-            <a href="" role="tab" data-toggle="tab">
-            <img id = "picture" class="media-object" data-ng-src="{{author.picture}}">
-            </a>                
-        </div>
-        <div class="media-body">
-           <h4 class="media-heading">{{author.name}}</h4>
-           <br>
-           <text>{{author.summary}}</text>
-            <ul class="list-inline list-unstyled">
-               <li>
-                   <span class="glyphicon glyphicon-book"></span>                       
-                   {{author.books.length}} books
-               </li>
-               <li>	| </li>
-               <li>
-               <a href="#/authordetails/{{author.id}}" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-eye-open"></span>Show author</a>					
-                </li>
-               <li>
-               
-                <button type="submit" ng-click="update(author.id)" class="btn btn-xs btn-default">
-                   <span class="glyphicon glyphicon-pencil"></span>Edit author
-                </button>
-               </li>
-               <li>
-                <button type="submit" ng-click="delete(author.id)" class="btn btn-xs btn-danger">
-                      <span class="glyphicon glyphicon-remove-circle"></span> Delete author
-                </button>
-               </li>
-           </ul>
-        </div>
-  </div>
 </div>

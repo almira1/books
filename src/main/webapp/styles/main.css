@@ -192,3 +192,12 @@ ul.rating {
 	width:200px;
 	height:200px
 }
+.picture-small{
+	width:150px;
+	height:150px
+}
+.dark{
+	background: #333;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #333;
+}
