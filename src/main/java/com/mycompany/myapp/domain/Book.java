@@ -28,15 +28,18 @@ public class Book implements Serializable {
     private String filePath;
 
     @Column(name = "rate")
-    private Integer rate;
+    private int rate;
+    
+    @Column(name = "rate_people")
+    private int rate_people;
 
-    @Column(name = "picture")
+    @Column(name = "picture")   
     private String picture;
 
     @ManyToMany
     private Set<Author> authors = new HashSet<>();
 
-    @OneToMany(mappedBy = "book")
+    @OneToMany(mappedBy = "book")   
     private Set<Comment> comments = new HashSet<>();
 
     @ManyToMany
@@ -77,12 +80,20 @@ public class Book implements Serializable {
         this.filePath = filePath;
     }
 
-    public Integer getRate() {
+    public int getRate() {
         return rate;
     }
 
-    public void setRate(Integer rate) {
+    public void setRate(int rate) {
         this.rate = rate;
+    }
+    
+    public int getRatePeople() {
+        return rate_people;
+    }
+
+    public void setRatePeople(int rate_people) {
+        this.rate_people = rate_people;
     }
 
     public String getPicture() {

@@ -34,11 +34,7 @@ public class BookResource {
     @Inject
     private BookRepository bookRepository;
     @Inject
-    private CommentRepository commentRepository;
-    @Inject
-    private AuthorRepository authorRepository;
-    @Inject
-    private GenreRepository genreRepository;
+    private CommentRepository commentRepository;   
 
     /**
      * POST  /rest/books -> Create a new book.
@@ -63,6 +59,8 @@ public class BookResource {
         log.debug("REST request to get all Books");
         List<Book> books =  bookRepository.findEagerRelationships();
         
+        for(Book b : books)
+        	b.setComments(commentRepository.getCommentsForBook(b.getId()));
         return books;        
     }
 
@@ -75,11 +73,28 @@ public class BookResource {
     @Timed
     public ResponseEntity<Book> get(@PathVariable Long id, HttpServletResponse response) {
         log.debug("REST request to get Book : {}", id);
-        Book book = bookRepository.findOneWithEagerRelationships(id);
+        Book book = bookRepository.findOneWithEagerRelationships(id);        
         if (book == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+        book.setComments(commentRepository.getCommentsForBook(book.getId()));
         return new ResponseEntity<>(book, HttpStatus.OK);
+    }    
+    
+    /**
+     * GET  /rest/rateForBook/:id -> get the "id" book.
+     */
+    @RequestMapping(value = "/rest/rateForBook/{id}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public int getRateForBook(@PathVariable Long id, HttpServletResponse response) {
+        log.debug("REST request to get Book : {}", id);
+        Book book = bookRepository.findOne(id); 
+        if (book == null) {
+            return 0;
+        }
+        else return book.getRate();
     }    
     
     /**

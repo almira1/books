@@ -3,6 +3,7 @@ package com.mycompany.myapp.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import com.mycompany.myapp.domain.Comment;
 import com.mycompany.myapp.repository.CommentRepository;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -64,6 +67,19 @@ public class CommentResource {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(comment, HttpStatus.OK);
+    }
+    
+    /**
+     * GET  /rest/commentsforbook/:id -> get the "id" comment.
+     */
+    @RequestMapping(value = "/rest/commentsforbook/{id}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public List<Comment> commentsforbook(@PathVariable Long id, HttpServletResponse response) {
+        log.debug("REST request to get commentsforbook : {}", id);
+        return new ArrayList<Comment> (commentRepository.getCommentsForBook(id));      
+        
     }
 
     /**

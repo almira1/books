@@ -27,4 +27,19 @@ booksApp
                         authorizedRoles: [USER_ROLES.all]
                     }
                 })
+                .when('/bookdetails/:id', {
+                    templateUrl: 'views/bookDetails.html',
+                    controller: 'BookDetails',
+                    resolve:{
+                        resolvedBook: ['Book', function (Book) {
+                            return Book.query().$promise;
+                        }],
+                        resolvedComment: ['Comment', function (Comment) {
+                            return Comment.query().$promise;
+                        }]
+                    },
+                    access: {
+                        authorizedRoles: [USER_ROLES.all]
+                    }
+                })
         });

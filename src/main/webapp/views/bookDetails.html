@@ -1,0 +1,66 @@
+<div class="well">
+    <div class="media"> 
+        <div class="pull-left">
+            <div class = "col-sm-2">
+              <img title="profile image" class="picture" data-ng-src="{{book.picture}}"/>                        
+            </div>           
+        </div>
+        <div class="media-body">
+            <h1 class="media-heading">{{book.title}}</h1>
+            <ul class="list-inline list-unstyled">
+              <li><b>By:</b></li>
+              <li ng-repeat="author in book.authors">{{author.name}} </li>
+            </ul> 
+             <ul class="list-inline list-unstyled">
+	             <li><b>Genres:</b></li>
+	             <li ng-repeat="genre in book.genres">{{genre.name}} </li>
+            </ul>
+            <ul class="list-inline list-unstyled">
+	             <li><b>Summary:</b></li>
+	             <li>{{book.summary}} </li>
+            </ul>
+            <ul class="list-inline list-unstyled">
+                <li><span><i class="glyphicon glyphicon-comment"></i> {{book.comments.length}} comments</span></li>
+                <li>|</li>
+                <li>
+                    <span ng-repeat = "s in fullStars"  class="glyphicon glyphicon-star"></span>                
+                    <span ng-repeat = "s in emptyStars"  class="glyphicon glyphicon-star-empty"></span>                    
+                </li>
+                <li>|</li>
+                <li><span class="glyphicon glyphicon-user"></span>{{book.ratePeople}} people rated this book</li>
+            </ul>  
+             <ul class="list-inline list-unstyled">
+                <li>
+                    <div class="star-rating" star-rating rating-value="UserRating" data-max="5"></div>
+                </li>
+                <li><input type="button" class= "btn btn-xs btn-default" value = "Rate" ng-click = "rateFunction()"></li>
+            </ul>                  
+        </div>  
+    </div>
+    <div class="media">
+        <div class="media-body">
+             <form accept-charset="UTF-8" action="" method="post">                                       
+                <textarea class="form-control animated" cols="3" ng-model = "UserComment" placeholder="Enter your comment here..." rows="3"></textarea>  
+                <input type="button" class="btn btn-xs btn-default pull-right comment" value= "Comment" ng-click = "commentFunction()">                                
+            </form>
+        </div>
+    </div>
+    <div class= "media">
+        <ul class="media-list">     
+            <li ng-repeat = "comment in book.comments" class="media">
+                <img src="http://icons.iconarchive.com/icons/fatcow/farm-fresh/24/user-silhouette-icon.png" class="pull-left">
+                <div class="media-body">
+                  <h4 class="media-heading">{{comment.user.login}}</h4>
+                  {{comment.text}}
+                   <ul class="list-inline list-unstyled">                        
+                        <li>
+                            <a href ng-click = "commentLikeFunction(comment.id)">
+                                <span><i class="glyphicon glyphicon-thumbs-up"></i>{{comment.likes}}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>                    
+            </li>                  
+        </ul>                      
+    </div>
+</div>

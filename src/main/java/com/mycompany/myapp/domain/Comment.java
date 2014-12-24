@@ -20,12 +20,14 @@ public class Comment implements Serializable {
 
     @Column(name = "text")
     private String text;
+    
+    @Column(name = "likes")
+    private int likes;
 
     @ManyToOne
     private User user;
 
-    @ManyToOne    
-    @JsonIgnore
+    @ManyToOne
     private Book book;
 
     public Long getId() {
@@ -34,6 +36,14 @@ public class Comment implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+    
+    public int getLikes() {
+        return likes;
+    }
+
+    public void setLikes(int likes) {
+        this.likes = likes;
     }
 
     public String getText() {

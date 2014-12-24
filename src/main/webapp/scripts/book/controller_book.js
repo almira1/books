@@ -88,3 +88,85 @@ booksApp.controller('BookController', function ($scope, resolvedBook, Book, Book
         $scope.searchCriteria = 'Title';       
         
     });
+
+
+
+booksApp.controller('BookDetails', function ($scope,$routeParams,Book,Comment,Account,User,BookData) {
+  function getBook (){
+	  BookData.getBook($routeParams.id, function(results){
+		  $scope.book = results;
+		  setRate();
+	  }); 
+  };
+  getBook();
+  
+  $scope.settingsAccount = Account.get();
+  
+  
+  $scope.fullStars = [];
+  $scope.emptyStars = [];
+
+
+
+  function setRate()  {
+	  var average = 0;	  
+	  if($scope.book.rate != 0)
+		  average = Math.round($scope.book.rate / $scope.book.ratePeople);
+	  
+	  $scope.fullStars = [];
+	  $scope.emptyStars = [];
+    
+  	for(var i = 1; i <= average; i++)
+  		$scope.fullStars.push(i);
+
+  	for(var i = 5; i > average; i--)
+  		$scope.emptyStars.push(i);	
+  };
+
+
+  $scope.UserRating = 1;
+
+  $scope.rateFunction = function() {
+      $scope.book.rate = $scope.book.rate + $scope.UserRating;
+      $scope.book.ratePeople = $scope.book.ratePeople + 1; 
+      Book.save($scope.book, function(){});
+      setRate();
+    };
+
+  $scope.UserComment = '';
+  $scope.commentFunction = function(){
+	  var newComment = 
+	  {
+		text:$scope.UserComment,
+		book : {id : $scope.book.id },
+		user : {login: $scope.settingsAccount.login },
+		likes : 0,
+		  
+	  };
+	  Comment.save(newComment,
+              function () {         
+		  BookData.getComments($scope.book.id, function (results) {
+			  $scope.UserComment = '';
+			  $scope.book.comments = results;
+			  $scope.$apply();
+		  });
+              });
+	  
+  };
+
+  $scope.commentLikeFunction = function(id){
+	  var comment = null;
+	  for(var i = 0; i< $scope.book.comments.length; i ++)
+		  if($scope.book.comments[i].id == id)
+		  {
+			  $scope.book.comments[i].likes = $scope.book.comments[i].likes + 1;
+			  comment = $scope.book.comments[i];
+			  break;
+		  }
+	  Comment.save(comment, function () {});
+
+  };
+   
+});
+
+
