@@ -84,7 +84,7 @@ booksApp.controller('SettingsController', function ($scope, Account) {
         };
     });
 
-booksApp.controller('RegisterController', function ($scope, $translate, Register) {
+booksApp.controller('RegisterController', function ($scope, $translate, Register,$location) {
         $scope.success = null;
         $scope.error = null;
         $scope.doNotMatch = null;
@@ -102,6 +102,7 @@ booksApp.controller('RegisterController', function ($scope, $translate, Register
                 Register.save($scope.registerAccount,
                     function (value, responseHeaders) {
                         $scope.success = 'OK';
+                        $location.path('/login');
                     },
                     function (httpResponse) {
                         if (httpResponse.status === 400 && httpResponse.data === "login already in use") {
