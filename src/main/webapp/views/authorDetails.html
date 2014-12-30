@@ -2,18 +2,7 @@
     <div class="media"> 
         <div class="pull-left">           
               <img title="profile image" class="picture-small" data-ng-src="{{author.picture}}"/>  
-              <ul class="list-inline list-unstyled">               
-               <li>               
-                <button type="submit" ng-click="update(author.id)" class="btn btn-xs btn-default">
-                   <span class="glyphicon glyphicon-pencil"></span>Edit author
-                </button>
-               </li>
-               <li>
-                <button type="submit" ng-click="delete(author.id)" class="btn btn-xs btn-danger">
-                      <span class="glyphicon glyphicon-remove-circle"></span> Delete author
-                </button>
-               </li>
-           </ul>           
+                     
         </div>
         <div class="media-body">
             <h1 class="media-heading">{{author.name}}</h1>
