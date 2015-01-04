@@ -13,6 +13,10 @@ booksApp.factory('BookData', function ($http) {
 
             $http.get("app/rest/commentsforbook/" + id).success(callback);
         },
+        getReadlists: function (id, callback) {
+
+            $http.get("app/rest/readlistsforbook/" + id).success(callback);
+        },
         getBook : function (id, callback){
         	$http.get("app/rest/books/" + id).success(callback);
         }

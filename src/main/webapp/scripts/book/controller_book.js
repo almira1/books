@@ -1,12 +1,13 @@
 'use strict';
 
-booksApp.controller('BookController', function ($scope, resolvedBook, Book, BookData, resolvedAuthor, resolvedComment, resolvedGenre,resolvedUser,fileReader) {
+booksApp.controller('BookController', function ($scope, resolvedBook, Book, BookData, resolvedAuthor, resolvedComment, resolvedGenre,resolvedUser, fileReader) {
 
         $scope.books = resolvedBook;
         $scope.authors = resolvedAuthor;
         $scope.comments = resolvedComment;
         $scope.genres = resolvedGenre;
-        $scope.users = resolvedUser;           
+        $scope.users = resolvedUser;   
+        
                  
         $scope.src = null;
         
@@ -113,7 +114,7 @@ booksApp.controller('BookController', function ($scope, resolvedBook, Book, Book
 
 
 
-booksApp.controller('BookDetails', function ($scope,$routeParams,Book,Comment,Account,User,BookData,$location,resolvedAuthor, resolvedGenre,fileReader) {
+booksApp.controller('BookDetails', function ($scope,$routeParams,Book,Comment,Account,User,Readlist,BookData,$location,resolvedAuthor, resolvedGenre,fileReader) {
   
 	$scope.authors = resolvedAuthor;    
     $scope.genres = resolvedGenre;
@@ -200,6 +201,31 @@ booksApp.controller('BookDetails', function ($scope,$routeParams,Book,Comment,Ac
 
   };
   
+  $scope.check = function() {
+	  for(var i = 0; i<$scope.book.readlists.length ; i ++)
+	  if ($scope.book.readlists[i].user.login == $scope.settingsAccount.login) { // your question said "more than one element"
+	    return true;
+	   }
+	   else {
+	    return false;
+	   }
+	 };
+  
+  $scope.addToReadlistFunction = function(){
+	  	  $scope.check = function(){return true;}
+	  var newReadlist = 
+	  {
+		book : {id : $scope.book.id },
+		user : {login: $scope.settingsAccount.login }		  
+	  };
+	  Readlist.save(newReadlist, function () {
+		  $scope.readlists = Readlist.query();
+	  });
+	  
+	  
+	  
+  };
+  
   $scope.create = function () { 
 	    $scope.book.picture = $scope.src;
 		Book.save($scope.book,
@@ -223,6 +249,7 @@ $scope.delete = function (id) {
 	  $location.path('/book');
       });
 };
+
    
 });
 

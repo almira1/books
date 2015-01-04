@@ -69,6 +69,18 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @JsonIgnore
     private Set<Book> books = new HashSet<>();
 
+    @OneToMany(mappedBy = "user") 
+    @JsonIgnore
+    private Set<Readlist> readlists = new HashSet<>();
+    
+    public Set<Readlist> getReadlists() {
+		return readlists;
+	}
+
+	public void setReadlists(Set<Readlist> readlists) {
+		this.readlists = readlists;
+	}
+    
     public Set<Book> getBooks() {
         return books;
     }

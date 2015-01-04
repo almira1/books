@@ -7,6 +7,7 @@ import com.mycompany.myapp.repository.AuthorRepository;
 import com.mycompany.myapp.repository.BookRepository;
 import com.mycompany.myapp.repository.CommentRepository;
 import com.mycompany.myapp.repository.GenreRepository;
+import com.mycompany.myapp.repository.ReadlistRepository;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,7 +35,9 @@ public class BookResource {
     @Inject
     private BookRepository bookRepository;
     @Inject
-    private CommentRepository commentRepository;   
+    private CommentRepository commentRepository; 
+    @Inject
+    private ReadlistRepository readlistRepository;  
 
     /**
      * POST  /rest/books -> Create a new book.
@@ -59,8 +62,10 @@ public class BookResource {
         log.debug("REST request to get all Books");
         List<Book> books =  bookRepository.findEagerRelationships();
         
-        for(Book b : books)
+        for(Book b : books){
         	b.setComments(commentRepository.getCommentsForBook(b.getId()));
+        	b.setReadlists(readlistRepository.getReadlistsForBook(b.getId()));
+        }
         return books;        
     }
 
@@ -78,6 +83,7 @@ public class BookResource {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         book.setComments(commentRepository.getCommentsForBook(book.getId()));
+        book.setReadlists(readlistRepository.getReadlistsForBook(book.getId()));
         return new ResponseEntity<>(book, HttpStatus.OK);
     }    
     

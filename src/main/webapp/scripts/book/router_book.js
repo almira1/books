@@ -21,7 +21,7 @@ booksApp
                         }],
                         resolvedUser: ['User', function (User) {
                             return User.query().$promise;
-                        }] 
+                        }]  
                     },
                     access: {
                         authorizedRoles: [USER_ROLES.all]

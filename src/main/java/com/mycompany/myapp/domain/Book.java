@@ -3,6 +3,7 @@ package com.mycompany.myapp.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -47,6 +48,9 @@ public class Book implements Serializable {
 
     @ManyToMany
     private Set<User> users = new HashSet<>();
+    
+    @OneToMany(mappedBy = "book")   
+    private Set<Readlist> readlists = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -145,6 +149,14 @@ public class Book implements Serializable {
     public void setUsers(Set<User> users) {
         this.users = users;
     }
+    
+    public Set<Readlist> getReadlists() {
+        return readlists;
+    }
+
+    public void setReadlists(Set<Readlist> readlists) {
+        this.readlists = readlists;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -177,6 +189,7 @@ public class Book implements Serializable {
                 ", rate='" + rate + "'" +
                 ", picture='" + picture + "'" +
                 ", comments='" + comments.toString() + "'"+
+                ", readlists='" + readlists.toString() + "'"+
                 '}';
     }
 }
